@@ -1,0 +1,51 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: event-db
+spec:
+  members: 3
+  type: ReplicaSet
+  version: "4.2.6"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: event-admin
+      db: admin
+      passwordSecretRef:
+        name: event-admin-password
+      roles:
+        - name: clusterAdmin
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+      scramCredentialsSecretName: scram-event-user
+    - name: event-user
+      db: admin
+      passwordSecretRef:
+        name: event-user-password
+      roles:
+        - name: userAdminAnyDatabase
+          db: event-db
+        - name: readWrite
+          db: event-db
+      scramCredentialsSecretName: scram-event-user
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: event-admin-password
+type: Opaque
+stringData:
+  password: event-admin-password
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: event-user-password
+type: Opaque
+stringData:
+  password: event-user-password

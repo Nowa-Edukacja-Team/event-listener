@@ -24,10 +24,10 @@ TODO: add swagger link
 
 This service uses `kafka` to consume events that occur in services that are part of [`Nowa Edukacja`](https://github.com/orgs/Nowa-Edukacja-Team/projects/1) project.
 
-Detailed configuration and deployment instructions are described [here](./kafka/)
+Detailed configuration and deployment instructions are described [here](./kubernetes/kafka/)
 
 ### MongoDB Database
 
 This service uses `MongoDB` database to store and fetch consumed events
 
-Detailed configuration and deployment instructions are desribed [here](./database/)
+Detailed configuration and deployment instructions are desribed [here](./kubernetes/database/)
